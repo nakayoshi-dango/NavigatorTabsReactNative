@@ -1,20 +1,49 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Image } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import Styles from './general-styles';
+import {StartScreen, ListScreen, ProfileScreen} from './components/screens';
+
+
+// Create the Tab Navigator
+const Tab = createBottomTabNavigator();
+
+// Main
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    // Every app with a navigator should have a NavigationContainer as the root element 
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen 
+          name="Inicio" 
+          component={StartScreen} 
+          options={{
+            tabBarIcon: () => (
+              <Image source={require('./assets/home.png')} style={Styles.icons} />
+            ),
+          }}
+        />
+        <Tab.Screen 
+          name="Listado" 
+          component={ListScreen} 
+          options={{
+            tabBarIcon: () => (
+              <Image source={require('./assets/list.png')} style={Styles.icons} />
+            ),
+          }}
+        />
+        <Tab.Screen 
+          name="Perfil" 
+          component={ProfileScreen} 
+          options={{
+            tabBarIcon: () => (
+              <Image source={require('./assets/profile.png')} style={Styles.icons} />
+            ),
+          }}
+        />
+
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
