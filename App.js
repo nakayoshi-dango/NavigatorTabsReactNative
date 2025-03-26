@@ -5,14 +5,14 @@ import Styles from './general-styles';
 import {StartScreen, ListScreen, ProfileScreen} from './components/screens';
 
 
-// Create the Tab Navigator
+// Instanciar el Tab Navigator
 const Tab = createBottomTabNavigator();
 
 // Main
 
 export default function App() {
   return (
-    // Every app with a navigator should have a NavigationContainer as the root element 
+    // Toda app con un Navigator debe tener un NavigationContainer como elemento raíz 
     <NavigationContainer>
       <Tab.Navigator>
         <Tab.Screen 
