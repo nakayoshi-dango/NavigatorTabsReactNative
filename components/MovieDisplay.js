@@ -2,7 +2,7 @@ import { Image, Text, View } from 'react-native';
 import { useState, useEffect } from 'react';
 import Styles from '../general-styles';
 
-const MovieDisplay = ({ index, movie }) => {
+const MovieDisplay = ({ movie }) => {
 
   const [imageError, setImageError] = useState(false);
 
@@ -11,7 +11,7 @@ const MovieDisplay = ({ index, movie }) => {
   };
 
   return (
-    <View key={index} style={Styles.listitem}>
+    <View style={Styles.listitem}>
 
       {/* Operador ternario (if else) */}
 
