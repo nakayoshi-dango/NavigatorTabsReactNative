@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.deadcenter {
+  @apply flex-1 bg-white items-center justify-center;
+}
+
+.icons {
+  @apply w-[25px] h-[25px];
+}
+
+.pressables {
+  @apply w-auto h-auto m-2 bg-red-500;
+}
+
+.normaltext {
+  @apply text-black text-[11px];
+}
+
+.h2text {
+  @apply text-black text-[18px] font-bold mb-1;
+}
+
+.listitem {
+  @apply mt-2 mb-2 mx-2 p-4 rounded-[30px] bg-pink-300 w-auto h-auto;
+}
+
+.image {
+  @apply object-contain w-[140px] h-[170px];
+}
