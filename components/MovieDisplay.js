@@ -1,5 +1,5 @@
 import { Image, Text, View } from 'react-native';
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 
 const MovieDisplay = ({ movie }) => {
 
@@ -9,8 +9,9 @@ const MovieDisplay = ({ movie }) => {
     setImageError(true);
   };
 
+
   return (
-    <View className="listitem">
+    <View className="itemdetail">
 
       {/* Operador ternario (if else) */}
 
@@ -18,7 +19,7 @@ const MovieDisplay = ({ movie }) => {
         <Text className="normaltext">La imagen no está disponible</Text>
       ) : (
         <Image
-          className="image"
+          className="bigimage"
           source={{ uri: movie.pictureUrl }}
           onError={handleImageError}
           resizeMode="contain"

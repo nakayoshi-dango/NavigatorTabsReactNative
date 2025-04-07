@@ -22,10 +22,14 @@
   @apply text-black text-[18px] font-bold mb-1;
 }
 
-.listitem {
+.itemdetail {
   @apply mt-2 mb-2 mx-2 p-4 rounded-[30px] bg-pink-300 w-auto h-auto;
 }
 
-.image {
-  @apply object-contain w-[140px] h-[170px];
+.bigimage {
+  @apply object-contain w-[190px] h-[300px];
+}
+
+.listitem {
+  @apply mt-2 mb-2 mx-2 p-4 rounded-[30px] bg-gray-300 w-auto h-auto;
 }

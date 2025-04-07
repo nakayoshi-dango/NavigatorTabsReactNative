@@ -1,7 +1,7 @@
 import { Image } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import Styles from './general-styles';
+import styles from './general-styles';
 import {StartScreen, ListScreen, ProfileScreen} from './components/screens';
 import "./global.css"
 
@@ -21,7 +21,7 @@ export default function App() {
           component={StartScreen} 
           options={{
             tabBarIcon: () => (
-              <Image source={require('./assets/home.png')} style={Styles.icons} />
+              <Image source={require('./assets/home.png')} style={styles.icons} />
             ),
           }}
         />
@@ -30,7 +30,7 @@ export default function App() {
           component={ListScreen} 
           options={{
             tabBarIcon: () => (
-              <Image source={require('./assets/list.png')} style={Styles.icons} />
+              <Image source={require('./assets/list.png')} style={styles.icons} />
             ),
           }}
         />
@@ -39,7 +39,7 @@ export default function App() {
           component={ProfileScreen} 
           options={{
             tabBarIcon: () => (
-              <Image source={require('./assets/profile.png')} style={Styles.icons} />
+              <Image source={require('./assets/profile.png')} style={styles.icons} />
             ),
           }}
         />

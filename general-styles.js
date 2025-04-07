@@ -1,32 +1,32 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from "react-native";
 
 // Estilos reusables
 
 export default StyleSheet.create({
   deadcenter: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
   icons: {
-    width: 25,
-    height: 25,
+    width: Platform.OS === "web" ? 36 : 24,
+    height: Platform.OS === "web" ? 36 : 24,
   },
   pressables: {
-    width: 'auto',
-    height: 'auto',
+    width: "auto",
+    height: "auto",
     margin: 10,
-    backgroundColor: 'red',
+    backgroundColor: "red",
   },
   normaltext: {
-    color: 'black',
+    color: "black",
     fontSize: 11,
   },
   h2text: {
-    color: 'black',
+    color: "black",
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 5,
   },
   listitem: {
@@ -35,9 +35,9 @@ export default StyleSheet.create({
     marginHorizontal: 10,
     padding: 10,
     borderRadius: 30,
-    backgroundColor: 'lightpink',
-    width: 'auto',
-    height: 'auto',
+    backgroundColor: "lightpink",
+    width: "auto",
+    height: "auto",
   },
   image: {
     width: 100,
