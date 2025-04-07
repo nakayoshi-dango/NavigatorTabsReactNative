@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, createJSONStorage} from "zustand/middleware";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const useMovieStore = create(
@@ -29,7 +29,7 @@ const useMovieStore = create(
     }),
     {
       name: "movie-storage",
-      getStorage: () => AsyncStorage,
+      storage: createJSONStorage(() => AsyncStorage),
     }
   )
 );
