@@ -42,6 +42,7 @@ const ListScreen = ({ navigation }) => {
       mergeMovies(moviesArray, keysArray);
     } catch (error) {
       console.error("Error:", error);
+      Alert.alert("Error al cargar películas", error.message);
     }
   };
 
@@ -91,7 +92,7 @@ const Stack = createStackNavigator();
 
 const ListStack = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="Movie List">
       <Stack.Screen name="Movie List" component={ListScreen} />
       <Stack.Screen name="Movie Details" component={MovieDetailScreen} />
     </Stack.Navigator>

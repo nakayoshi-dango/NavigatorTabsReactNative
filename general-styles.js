@@ -1,6 +1,6 @@
 import { StyleSheet, Platform } from "react-native";
 
-// Estilos reusables
+// OBSOLETO AHORA USO NATIVEWIND
 
 export default StyleSheet.create({
   deadcenter: {

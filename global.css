@@ -22,6 +22,10 @@
   @apply text-black text-[18px] font-bold mb-1;
 }
 
+.textinput {
+  @apply text-black border-2 rounded-lg border-neutral-500 px-2 placeholder:{color-neutral-500} ;
+}
+
 .itemdetail {
   @apply mt-2 mb-2 mx-2 p-4 rounded-[30px] bg-pink-300 w-auto h-auto;
 }
