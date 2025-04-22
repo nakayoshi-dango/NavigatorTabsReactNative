@@ -1,4 +1,4 @@
-package com.anonymous.NavigatorTabsReactNative
+package com.keiji.fct
 
 import android.os.Build
 import android.os.Bundle

@@ -1,11 +1,9 @@
 import { StyleSheet, Platform } from "react-native";
 
-// OBSOLETO AHORA USO NATIVEWIND
-
-export default StyleSheet.create({
+const globalStyles = StyleSheet.create({
   deadcenter: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -16,8 +14,8 @@ export default StyleSheet.create({
   pressables: {
     width: "auto",
     height: "auto",
-    margin: 10,
-    backgroundColor: "red",
+    margin: 2,
+    backgroundColor: "#ef4444",
   },
   normaltext: {
     color: "black",
@@ -27,20 +25,40 @@ export default StyleSheet.create({
     color: "black",
     fontSize: 18,
     fontWeight: "bold",
-    marginBottom: 5,
+    marginBottom: 1,
   },
-  listitem: {
-    marginTop: 5,
-    marginBottom: 5,
-    marginHorizontal: 10,
-    padding: 10,
+  textinput: {
+    color: "black",
+    borderWidth: 2,
+    borderRadius: 8,
+    borderColor: "#6b7280",
+    paddingHorizontal: 8,
+  },
+  itemdetail: {
+    marginTop: 2,
+    marginBottom: 2,
+    marginHorizontal: 2,
+    padding: 16, 
     borderRadius: 30,
-    backgroundColor: "lightpink",
+    backgroundColor: "#f472b6", 
     width: "auto",
     height: "auto",
   },
-  image: {
-    width: 100,
-    height: 170,
+  bigimage: {
+    objectFit: "contain",
+    width: 190,
+    height: 300,
+  },
+  listitem: {
+    marginTop: 2,
+    marginBottom: 2,
+    marginHorizontal: 2,
+    padding: 16, 
+    borderRadius: 30,
+    backgroundColor: "#d1d5db",
+    width: "auto",
+    height: "auto",
   },
 });
+
+export default globalStyles;

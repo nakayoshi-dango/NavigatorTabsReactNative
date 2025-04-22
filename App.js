@@ -3,7 +3,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import styles from './general-styles';
 import {StartScreen, ListScreen, ProfileScreen} from './components/screens';
-import "./global.css"
 
 
 // Instanciar el Tab Navigator

@@ -1,18 +1,20 @@
 import { useState, useEffect } from "react";
 import { View, Button, Alert, Text } from "react-native";
-import { auth } from "../../firebaseConfig";
-import { signOut } from "firebase/auth";
+import auth from "@react-native-firebase/auth";
 import { createStackNavigator } from "@react-navigation/stack";
 import LoginScreen from './LoginScreen';
 import SignUpScreen from './SignUpScreen';
+import globalStyles from '../../general-styles';
+import { useNavigation } from '@react-navigation/native'
 
-const ProfileScreen = ({ navigation }) => {
+const ProfileScreen = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigation = useNavigation();
 
   const handleSignOut = async () => {
     try {
-      await signOut(auth);
+      await auth().signOut();
       console.log("Sesión cerrada correctamente.");
       navigation.navigate("Profile");
     } catch (error) {
@@ -22,7 +24,7 @@ const ProfileScreen = ({ navigation }) => {
   };
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+    const unsubscribe = auth().onAuthStateChanged((authUser) => { // Llama a onAuthStateChanged con la instancia auth()
       if (authUser) {
         // Usuario conectado
         setUser(authUser);
@@ -35,15 +37,15 @@ const ProfileScreen = ({ navigation }) => {
 
     // Importante: Cancela la suscripción cuando el componente se desmonte
     return unsubscribe;
-  }, []);
-
+  }, []); 
+  
   return (
     <View>
       {loading ? (
-        <Text >Cargando estado de autenticación...</Text>
+        <Text style={globalStyles.h2text}>Cargando estado de autenticación...</Text>
       ) : user ? (
         <>
-          <Text className="h2text">Usuario conectado: {user.email}</Text>
+          <Text style={globalStyles.h2text}>Usuario conectado: {user.email}</Text>
           <Button title="Cerrar Sesión" onPress={handleSignOut} />
         </>
       ) : (
@@ -65,7 +67,7 @@ const ProfileScreen = ({ navigation }) => {
 const Stack = createStackNavigator();
 
 const ProfileStack = () => {
-  return ( 
+  return (
     <Stack.Navigator initialRouteName="Profile">
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />

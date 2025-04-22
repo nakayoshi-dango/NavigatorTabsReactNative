@@ -24,7 +24,8 @@
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="com.anonymous.NavigatorTabsReactNative"/>
+        <data android:scheme="com.keiji.fct"/>
+        <data android:scheme="exp+navigatortabsreactnative"/>
       </intent-filter>
     </activity>
   </application>

@@ -1,4 +1,4 @@
-package com.anonymous.NavigatorTabsReactNative
+package com.keiji.fct
 
 import android.app.Application
 import android.content.res.Configuration

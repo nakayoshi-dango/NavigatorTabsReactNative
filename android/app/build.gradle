@@ -86,9 +86,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace 'com.anonymous.NavigatorTabsReactNative'
+    namespace 'com.keiji.fct'
     defaultConfig {
-        applicationId 'com.anonymous.NavigatorTabsReactNative'
+        applicationId 'com.keiji.fct'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -174,3 +174,5 @@ dependencies {
         implementation jscFlavor
     }
 }
+
+apply plugin: 'com.google.gms.google-services'
