@@ -25,7 +25,6 @@
       }
     },
     "plugins": [
-      "@react-native-firebase/app",
       [
         "expo-build-properties",
         {

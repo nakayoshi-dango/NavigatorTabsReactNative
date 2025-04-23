@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, Alert } from "react-native";
-import auth from "@react-native-firebase/auth";
+import {signInWithEmailAndPassword} from "firebase/auth";
+import {FIREBASE_AUTH} from "../../FirebaseConfig";
 import { useNavigation } from "@react-navigation/native";
 import globalStyles from "../../general-styles";
 
@@ -10,6 +11,12 @@ export default function LoginScreen() {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const navigation = useNavigation();
+  const auth = FIREBASE_AUTH;
+
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
 
   const validateEmail = (text) => {
     setEmail(text);
@@ -53,7 +60,7 @@ export default function LoginScreen() {
 
     if (isValid) {
       try {
-        const userCredential = await auth().signInWithEmailAndPassword(
+        const userCredential = await signInWithEmailAndPassword(auth,
           email,
           password
         );

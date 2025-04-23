@@ -1,21 +1,23 @@
 import { useState, useEffect } from "react";
 import { View, Button, Alert, Text } from "react-native";
-import auth from "@react-native-firebase/auth";
+import {onAuthStateChanged, signOut} from "firebase/auth";
+import {FIREBASE_AUTH} from "../../FirebaseConfig";
 import { createStackNavigator } from "@react-navigation/stack";
 import LoginScreen from './LoginScreen';
 import SignUpScreen from './SignUpScreen';
 import globalStyles from '../../general-styles';
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native';
 
 const ProfileScreen = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
+  const auth = FIREBASE_AUTH;
 
   const handleSignOut = async () => {
     try {
-      await auth().signOut();
-      console.log("Sesión cerrada correctamente.");
+      const response = await signOut(auth);
+      console.log("Sesión cerrada correctamente. " + response);
       navigation.navigate("Profile");
     } catch (error) {
       console.error("Error al cerrar sesión:", error.message);
@@ -24,28 +26,36 @@ const ProfileScreen = () => {
   };
 
   useEffect(() => {
-    const unsubscribe = auth().onAuthStateChanged((authUser) => { // Llama a onAuthStateChanged con la instancia auth()
-      if (authUser) {
-        // Usuario conectado
-        setUser(authUser);
+    const unsubscribe = onAuthStateChanged(auth,(currentUser) => {
+      console.log("Auth user:", currentUser);  // Agrega este log para inspeccionar el estado del usuario
+      if (currentUser) {
+        setUser(currentUser);
       } else {
-        // Usuario desconectado
         setUser(null);
       }
       setLoading(false);
     });
-
-    // Importante: Cancela la suscripción cuando el componente se desmonte
-    return unsubscribe;
-  }, []); 
   
+    return () => unsubscribe();
+  }, []);
+  
+
+  // Verificación explícita de que el usuario no es null antes de acceder a sus propiedades
+  if (loading) {
+    return (
+      <View>
+        <Text style={globalStyles.h2text}>Cargando estado de autenticación...</Text>
+      </View>
+    );
+  }
+
   return (
     <View>
-      {loading ? (
-        <Text style={globalStyles.h2text}>Cargando estado de autenticación...</Text>
-      ) : user ? (
+      {user ? (
         <>
-          <Text style={globalStyles.h2text}>Usuario conectado: {user.email}</Text>
+          <Text style={globalStyles.h2text}>
+            Usuario conectado: {user.email ? user.email : "No disponible"}
+          </Text>
           <Button title="Cerrar Sesión" onPress={handleSignOut} />
         </>
       ) : (

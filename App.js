@@ -1,49 +1,57 @@
-import { Image } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
-import styles from './general-styles';
-import {StartScreen, ListScreen, ProfileScreen} from './components/screens';
+import { Image } from "react-native";
+import { useEffect } from "react";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { NavigationContainer } from "@react-navigation/native";
+import styles from "./general-styles";
+import { StartScreen, ListScreen, ProfileScreen } from "./components/screens";
 
 
-// Instanciar el Tab Navigator
-const Tab = createBottomTabNavigator();
-
-// Main
-
-export default function App() {
+const App = () => {
+  const Tab = createBottomTabNavigator();
+  
   return (
-    // Toda app con un Navigator debe tener un NavigationContainer como elemento raíz 
+    // Toda app con un Navigator debe tener un NavigationContainer como elemento raíz
     <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen 
-          name="Inicio" 
-          component={StartScreen} 
+        <Tab.Screen
+          name="Inicio"
+          component={StartScreen}
           options={{
             tabBarIcon: () => (
-              <Image source={require('./assets/home.png')} style={styles.icons} />
+              <Image
+                source={require("./assets/home.png")}
+                style={styles.icons}
+              />
             ),
           }}
         />
-        <Tab.Screen 
-          name="Listado" 
-          component={ListScreen} 
+        <Tab.Screen
+          name="Listado"
+          component={ListScreen}
           options={{
             tabBarIcon: () => (
-              <Image source={require('./assets/list.png')} style={styles.icons} />
+              <Image
+                source={require("./assets/list.png")}
+                style={styles.icons}
+              />
             ),
           }}
         />
-        <Tab.Screen 
-          name="Perfil" 
-          component={ProfileScreen} 
+        <Tab.Screen
+          name="Perfil"
+          component={ProfileScreen}
           options={{
             tabBarIcon: () => (
-              <Image source={require('./assets/profile.png')} style={styles.icons} />
+              <Image
+                source={require("./assets/profile.png")}
+                style={styles.icons}
+              />
             ),
           }}
         />
-
       </Tab.Navigator>
     </NavigationContainer>
   );
-}
+};
+
+export default App;
