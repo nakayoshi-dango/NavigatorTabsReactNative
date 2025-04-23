@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, Alert } from "react-native";
-import {signInWithEmailAndPassword} from "firebase/auth";
-import {FIREBASE_AUTH} from "../../FirebaseConfig";
+import {
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+} from "firebase/auth";
+import { FIREBASE_AUTH } from "../../FirebaseConfig";
 import { useNavigation } from "@react-navigation/native";
 import globalStyles from "../../general-styles";
 
@@ -21,20 +24,39 @@ export default function LoginScreen() {
   const validateEmail = (text) => {
     setEmail(text);
     if (!text) {
-      setEmailError('El correo electrónico es obligatorio.');
+      setEmailError("El correo electrónico es obligatorio.");
     } else if (!isValidEmail(text)) {
-      setEmailError('El correo electrónico no es válido.');
+      setEmailError("El correo electrónico no es válido.");
     } else {
-      setEmailError('');
+      setEmailError("");
     }
   };
 
   const validatePassword = (text) => {
     setPassword(text);
     if (!text) {
-      setPasswordError('La contraseña es obligatoria.');
+      setPasswordError("La contraseña es obligatoria.");
     } else {
-      setPasswordError('');
+      setPasswordError("");
+    }
+  };
+
+  const sendResetPassword = async () => {
+    if (!email) {
+      setEmailError("El correo electrónico es obligatorio.");
+      isValid = false;
+    } else if (!isValidEmail(email)) {
+      setEmailError("El correo electrónico no es válido.");
+      isValid = false;
+    } else {
+      setEmailError("");
+    }
+    try {
+      sendPasswordResetEmail(auth, email);
+      Alert.alert("Enviado", "Correo de recuperación enviado.");
+    } catch (error) {
+      console.error("Error al iniciar sesión:", error.message);
+      Alert.alert("Error al iniciar sesión: ", error.message);
     }
   };
 
@@ -42,25 +64,26 @@ export default function LoginScreen() {
     let isValid = true;
 
     if (!email) {
-      setEmailError('El correo electrónico es obligatorio.');
+      setEmailError("El correo electrónico es obligatorio.");
       isValid = false;
     } else if (!isValidEmail(email)) {
-      setEmailError('El correo electrónico no es válido.');
+      setEmailError("El correo electrónico no es válido.");
       isValid = false;
     } else {
-      setEmailError('');
+      setEmailError("");
     }
 
     if (!password) {
-      setPasswordError('La contraseña es obligatoria.');
+      setPasswordError("La contraseña es obligatoria.");
       isValid = false;
     } else {
-      setPasswordError('');
+      setPasswordError("");
     }
 
     if (isValid) {
       try {
-        const userCredential = await signInWithEmailAndPassword(auth,
+        const userCredential = await signInWithEmailAndPassword(
+          auth,
           email,
           password
         );
@@ -86,7 +109,7 @@ export default function LoginScreen() {
         onChangeText={validateEmail}
         keyboardType="email-address"
       />
-      {emailError ? <Text style={{ color: 'red' }}>{emailError}</Text> : null}
+      {emailError ? <Text style={{ color: "red" }}>{emailError}</Text> : null}
       <TextInput
         style={globalStyles.textinput}
         placeholder="Contraseña"
@@ -95,8 +118,11 @@ export default function LoginScreen() {
         onChangeText={validatePassword}
         secureTextEntry
       />
-      {passwordError ? <Text style={{ color: 'red' }}>{passwordError}</Text> : null}
+      {passwordError ? (
+        <Text style={{ color: "red" }}>{passwordError}</Text>
+      ) : null}
       <Button title="Iniciar Sesión" onPress={handleLogin} />
+      <Button title="Restablecer contraseña" onPress={sendResetPassword} />
     </View>
   );
 }
