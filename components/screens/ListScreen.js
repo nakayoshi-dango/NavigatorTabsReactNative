@@ -6,12 +6,13 @@ import {
   TouchableOpacity,
   ScrollView,
   StyleSheet,
+  useColorScheme,
 } from "react-native";
 import { useEffect, useState } from "react";
 import MovieDisplay from "../MovieDisplay";
 import useMovieStore from "../useMovieStore";
 import { createStackNavigator } from "@react-navigation/stack";
-import globalStyles from "../../general-styles";
+import getGlobalStyles from "../../general-styles";
 
 const MovieDetailScreen = ({ route }) => {
   const { movie } = route.params;
@@ -26,7 +27,8 @@ const MovieDetailScreen = ({ route }) => {
 const ListScreen = ({ navigation }) => {
   const { movies, movieKeys, setMovies, setMovieKeys, mergeMovies } =
     useMovieStore();
-
+  const colorScheme = useColorScheme();
+  const styles = getGlobalStyles(colorScheme === "dark");
   const fetchMovies = async () => {
     try {
       const response = await fetch(
@@ -63,23 +65,25 @@ const ListScreen = ({ navigation }) => {
       data={movies}
       keyExtractor={(item, index) => movieKeys[index]}
       renderItem={({ item, index }) => (
-        <View key={movieKeys[index]} style={globalStyles.listitem}>
+        <View key={movieKeys[index]} style={styles.listitem}>
           <TouchableOpacity
             onPress={() =>
               navigation.navigate("Movie Details", { movie: item })
             }
           >
             {imageError ? (
-              <Text style={globalStyles.normaltext}>La imagen no está disponible</Text>
+              <Text style={styles.normaltext}>
+                La imagen no está disponible
+              </Text>
             ) : (
               <Image
-                style={globalStyles.bigimage}
+                style={styles.bigimage}
                 source={{ uri: item.pictureUrl }}
                 onError={handleImageError}
                 resizeMode="contain"
               />
             )}
-            <Text style={globalStyles.h2text}>{item.name}</Text>
+            <Text style={styles.h2text}>{item.name}</Text>
             <Text style={styles.year}>{item.year}</Text>
             <Text style={styles.description}>{item.description}</Text>
           </TouchableOpacity>
@@ -91,11 +95,11 @@ const ListScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   year: {
-    color: 'black', // Ejemplo de estilo específico
+    color: "black", // Ejemplo de estilo específico
     fontSize: 12,
   },
   description: {
-    color: 'gray', // Ejemplo de estilo específico
+    color: "gray", // Ejemplo de estilo específico
     fontSize: 10,
   },
 });

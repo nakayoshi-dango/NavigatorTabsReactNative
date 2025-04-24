@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, Alert } from "react-native";
+import { View, Text, TextInput, Button, Alert, useColorScheme } from "react-native";
 import {
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
 } from "firebase/auth";
 import { FIREBASE_AUTH } from "../../FirebaseConfig";
 import { useNavigation } from "@react-navigation/native";
-import globalStyles from "../../general-styles";
+import getGlobalStyles from "../../general-styles";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
@@ -15,6 +15,8 @@ export default function LoginScreen() {
   const [passwordError, setPasswordError] = useState("");
   const navigation = useNavigation();
   const auth = FIREBASE_AUTH;
+  const colorScheme = useColorScheme();
+  const styles = getGlobalStyles(colorScheme === "dark");
 
   const isValidEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -99,10 +101,10 @@ export default function LoginScreen() {
   };
 
   return (
-    <View style={globalStyles.deadcenter}>
-      <Text style={globalStyles.h2text}>Iniciar Sesión</Text>
+    <View style={styles.deadcenter}>
+      <Text style={styles.h2text}>Iniciar Sesión</Text>
       <TextInput
-        style={globalStyles.textinput}
+        style={styles.textinput}
         placeholder="Correo electrónico"
         placeholderTextColor="#6b7280"
         value={email}
@@ -111,7 +113,7 @@ export default function LoginScreen() {
       />
       {emailError ? <Text style={{ color: "red" }}>{emailError}</Text> : null}
       <TextInput
-        style={globalStyles.textinput}
+        style={styles.textinput}
         placeholder="Contraseña"
         placeholderTextColor="#6b7280"
         value={password}

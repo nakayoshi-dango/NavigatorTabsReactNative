@@ -1,18 +1,20 @@
 import { useState, useEffect } from "react";
-import { View, Button, Alert, Text } from "react-native";
-import {onAuthStateChanged, signOut} from "firebase/auth";
-import {FIREBASE_AUTH} from "../../FirebaseConfig";
+import { View, Button, Alert, Text, useColorScheme } from "react-native";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { FIREBASE_AUTH } from "../../FirebaseConfig";
 import { createStackNavigator } from "@react-navigation/stack";
-import LoginScreen from './LoginScreen';
-import SignUpScreen from './SignUpScreen';
-import globalStyles from '../../general-styles';
-import { useNavigation } from '@react-navigation/native';
+import LoginScreen from "./LoginScreen";
+import SignUpScreen from "./SignUpScreen";
+import getGlobalStyles from "../../general-styles";
+import { useNavigation } from "@react-navigation/native";
 
 const ProfileScreen = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
   const auth = FIREBASE_AUTH;
+  const colorScheme = useColorScheme();
+  const styles = getGlobalStyles(colorScheme === "dark");
 
   const handleSignOut = async () => {
     try {
@@ -26,8 +28,8 @@ const ProfileScreen = () => {
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth,(currentUser) => {
-      console.log("Auth user:", currentUser);  // Agrega este log para inspeccionar el estado del usuario
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      console.log("Auth user:", currentUser); // Agrega este log para inspeccionar el estado del usuario
       if (currentUser) {
         setUser(currentUser);
       } else {
@@ -35,16 +37,15 @@ const ProfileScreen = () => {
       }
       setLoading(false);
     });
-  
+
     return () => unsubscribe();
   }, []);
-  
 
   // Verificación explícita de que el usuario no es null antes de acceder a sus propiedades
   if (loading) {
     return (
       <View>
-        <Text style={globalStyles.h2text}>Cargando estado de autenticación...</Text>
+        <Text style={styles.h2text}>Cargando estado de autenticación...</Text>
       </View>
     );
   }
@@ -53,7 +54,7 @@ const ProfileScreen = () => {
     <View>
       {user ? (
         <>
-          <Text style={globalStyles.h2text}>
+          <Text style={styles.h2text}>
             Usuario conectado: {user.email ? user.email : "No disponible"}
           </Text>
           <Button title="Cerrar Sesión" onPress={handleSignOut} />

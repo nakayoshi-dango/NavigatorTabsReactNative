@@ -1,14 +1,15 @@
-import { Image } from "react-native";
+import { Image, useColorScheme } from "react-native";
 import { useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
-import styles from "./general-styles";
+import getGlobalStyles from "./general-styles";
 import { StartScreen, ListScreen, ProfileScreen } from "./components/screens";
 
 
 const App = () => {
   const Tab = createBottomTabNavigator();
-  
+  const colorScheme = useColorScheme();
+  const styles = getGlobalStyles(colorScheme === "dark");
   return (
     // Toda app con un Navigator debe tener un NavigationContainer como elemento raíz
     <NavigationContainer>

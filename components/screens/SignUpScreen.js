@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, Alert } from "react-native";
-import {createUserWithEmailAndPassword} from "firebase/auth";
-import {FIREBASE_AUTH} from "../../FirebaseConfig";
+import { View, Text, TextInput, Button, Alert, useColorScheme } from "react-native";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { FIREBASE_AUTH } from "../../FirebaseConfig";
 import { useNavigation } from "@react-navigation/native";
-import globalStyles from "../../general-styles";
+import getGlobalStyles from "../../general-styles";
 
 export default function SignUpScreen() {
   const [email, setEmail] = useState("");
@@ -12,6 +12,8 @@ export default function SignUpScreen() {
   const [passwordError, setPasswordError] = useState("");
   const navigation = useNavigation();
   const auth = FIREBASE_AUTH;
+  const colorScheme = useColorScheme();
+  const styles = getGlobalStyles(colorScheme === "dark");
 
   const isValidEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -60,7 +62,8 @@ export default function SignUpScreen() {
 
     if (isValid) {
       try {
-        const userCredential = await createUserWithEmailAndPassword(auth,
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
           email,
           password
         );
@@ -76,26 +79,28 @@ export default function SignUpScreen() {
   };
 
   return (
-    <View style={globalStyles.deadcenter}>
-      <Text style={globalStyles.h2text}>Registro</Text>
+    <View style={styles.deadcenter}>
+      <Text style={styles.h2text}>Registro</Text>
       <TextInput
-        style={globalStyles.textinput}
+        style={styles.textinput}
         placeholder="Correo electrónico"
         placeholderTextColor="#6b7280"
         value={email}
         onChangeText={validateEmail}
         keyboardType="email-address"
       />
-      {emailError ? <Text style={{ color: 'red' }}>{emailError}</Text> : null}
+      {emailError ? <Text style={{ color: "red" }}>{emailError}</Text> : null}
       <TextInput
-        style={globalStyles.textinput}
+        style={styles.textinput}
         placeholder="Contraseña"
         placeholderTextColor="#6b7280"
         value={password}
         onChangeText={validatePassword}
         secureTextEntry
       />
-      {passwordError ? <Text style={{ color: 'red' }}>{passwordError}</Text> : null}
+      {passwordError ? (
+        <Text style={{ color: "red" }}>{passwordError}</Text>
+      ) : null}
       <Button title="Registrarse" onPress={handleSignUp} />
     </View>
   );
