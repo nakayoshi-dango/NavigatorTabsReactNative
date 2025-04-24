@@ -1,6 +1,7 @@
 import { Image, Text, View, useColorScheme } from "react-native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import getGlobalStyles from "../general-styles";
+import MovieRating from "./MovieRating";
 
 const MovieDisplay = ({ movie }) => {
   const [imageError, setImageError] = useState(false);
@@ -64,6 +65,9 @@ const MovieDisplay = ({ movie }) => {
       ) : (
         <Text style={styles.h2text}>No hay valoraciones disponibles</Text>
       )}
+
+      
+      <MovieRating movie={movie} />
 
       <Text style={styles.h2text}>Usuarios que dieron like:</Text>
       {movie.userLiked && movie.userLiked.length > 0 ? (

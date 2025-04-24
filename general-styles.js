@@ -12,6 +12,14 @@ export default function getGlobalStyles(isDarkMode) {
       width: 36,
       height: 36,
     },
+    pressableOpacity: {
+      backgroundColor: "#86efac",
+      borderRadius: 12,
+      paddingHorizontal: 16,
+      paddingVertical: 8,
+      alignSelf: "flex-start",
+      opacity: 0.9,
+    },
     pressables: {
       width: "auto",
       height: "auto",
@@ -21,6 +29,11 @@ export default function getGlobalStyles(isDarkMode) {
     normaltext: {
       color: isDarkMode ? "white" : "black",
       fontSize: 11,
+    },
+    boldtext: {
+      color: isDarkMode ? "white" : "black",
+      fontSize: 11,
+      fontWeight: "bold",
     },
     h2text: {
       color: isDarkMode ? "white" : "black",
@@ -39,7 +52,7 @@ export default function getGlobalStyles(isDarkMode) {
       marginTop: 2,
       marginBottom: 2,
       marginHorizontal: 2,
-      padding: 16, 
+      padding: 16,
       borderRadius: 30,
       backgroundColor: isDarkMode ? "#9d174d" : "#f472b6",
       width: "auto",
@@ -54,7 +67,7 @@ export default function getGlobalStyles(isDarkMode) {
       marginTop: 2,
       marginBottom: 2,
       marginHorizontal: 2,
-      padding: 16, 
+      padding: 16,
       borderRadius: 30,
       backgroundColor: isDarkMode ? "#374151" : "#d1d5db",
       width: "auto",
