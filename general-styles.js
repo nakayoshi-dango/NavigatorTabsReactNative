@@ -19,6 +19,7 @@ export default function getGlobalStyles(isDarkMode) {
       paddingVertical: 8,
       alignSelf: "flex-start",
       opacity: 0.9,
+      marginVertical: 2.5,
     },
     pressables: {
       width: "auto",
@@ -47,6 +48,7 @@ export default function getGlobalStyles(isDarkMode) {
       borderRadius: 8,
       borderColor: isDarkMode ? "#9ca3af" : "#6b7280",
       paddingHorizontal: 8,
+      marginVertical: 2.5,
     },
     itemdetail: {
       marginTop: 2,

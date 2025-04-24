@@ -11,6 +11,7 @@ import getGlobalStyles from "../general-styles";
 import { FIREBASE_AUTH } from "../FirebaseConfig";
 import { useRatingStore } from "./useRatingStore";
 import { getAuth } from "firebase/auth";
+import useLikeStore from "./useLikeStore";
 
 const MovieRating = ({ movie }) => {
   const [comment, setComment] = useState("");
@@ -23,6 +24,7 @@ const MovieRating = ({ movie }) => {
   const { addRating, getRating } = useRatingStore();
   const auth = FIREBASE_AUTH;
   const [localRating, setLocalRating] = useState(null);
+  const { addLike, removeLike, isLiked } = useLikeStore();
 
   useEffect(() => {
     const user = getAuth().currentUser;
@@ -56,6 +58,14 @@ const MovieRating = ({ movie }) => {
       setCommentError("El comentario es obligatorio.");
     } else {
       setCommentError("");
+    }
+  };
+
+  const handleLike = () => {
+    if (isLiked(movie.id)) {
+      removeLike(movie.id); // Si ya le dio like, lo elimina
+    } else {
+      addLike(movie.id); // Si no le dio like, lo agrega
     }
   };
 
@@ -159,6 +169,10 @@ const MovieRating = ({ movie }) => {
 
       <Pressable onPress={handleRating} style={styles.pressableOpacity}>
         <Text style={styles.boldtext}>Valorar</Text>
+      </Pressable>
+
+      <Pressable onPress={handleLike} style={styles.pressableOpacity}>
+        <Text style={styles.boldtext}>{isLiked(movie.id) ? "Quitar like" : "Dar like"}</Text>
       </Pressable>
     </View>
   );
