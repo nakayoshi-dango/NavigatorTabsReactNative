@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import getGlobalStyles from "./general-styles";
+import NotificationsManager from "./components/NotificationsManager";
 import { StartScreen, ListScreen, ProfileScreen } from "./components/screens";
 
 
@@ -10,6 +11,18 @@ const App = () => {
   const Tab = createBottomTabNavigator();
   const colorScheme = useColorScheme();
   const styles = getGlobalStyles(colorScheme === "dark");
+  useEffect(() => {
+    // Pedir permisos para notificaciones
+    NotificationsManager.requestUserPermission();
+
+    NotificationsManager.getDeviceToken();
+    
+    // Suscribirse a un canal
+    NotificationsManager.subscribeToTopic('general');
+    
+    // Escuchar notificaciones
+    NotificationsManager.listenForNotifications();
+  }, []);
   return (
     // Toda app con un Navigator debe tener un NavigationContainer como elemento raíz
     <NavigationContainer>

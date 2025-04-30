@@ -173,6 +173,8 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+    implementation platform('com.google.firebase:firebase-bom:32.7.3') // Usa la última BOM
+    implementation 'com.google.firebase:firebase-messaging'
 }
 
 apply plugin: 'com.google.gms.google-services'
