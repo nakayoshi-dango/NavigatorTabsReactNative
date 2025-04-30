@@ -5,6 +5,7 @@ import { FIREBASE_AUTH } from "../../FirebaseConfig";
 import { createStackNavigator } from "@react-navigation/stack";
 import LoginScreen from "./LoginScreen";
 import SignUpScreen from "./SignUpScreen";
+import UserDetailsForm from "../UserDetailsForm";
 import getGlobalStyles from "../../general-styles";
 import { useNavigation } from "@react-navigation/native";
 
@@ -57,6 +58,7 @@ const ProfileScreen = () => {
           <Text style={styles.h2text}>
             Usuario conectado: {user.email ? user.email : "No disponible"}
           </Text>
+          <UserDetailsForm/>
           <Button title="Cerrar Sesión" onPress={handleSignOut} />
         </>
       ) : (

@@ -27,6 +27,13 @@ export default function getGlobalStyles(isDarkMode) {
       margin: 2,
       backgroundColor: "#ef4444",
     },
+    inputStyle: {
+      borderWidth: 1,
+      borderColor: "#ccc",
+      borderRadius: 5,
+      padding: 10,
+      marginBottom: 15,
+    },
     normaltext: {
       color: isDarkMode ? "white" : "black",
       fontSize: 11,
