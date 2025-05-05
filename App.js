@@ -5,6 +5,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import getGlobalStyles from "./general-styles";
 import NotificationsManager from "./components/NotificationsManager";
 import { StartScreen, ListScreen, ProfileScreen } from "./components/screens";
+import HomeIcon from './assets/icons/home-icon.svg';
+import ListIcon from './assets/icons/list-icon.svg';
+import ProfileIcon from './assets/icons/profile-icon.svg';
 
 
 const App = () => {
@@ -32,10 +35,7 @@ const App = () => {
           component={StartScreen}
           options={{
             tabBarIcon: () => (
-              <Image
-                source={require("./assets/home.png")}
-                style={styles.icons}
-              />
+              <HomeIcon width={24} height={24} />
             ),
           }}
         />
@@ -44,10 +44,7 @@ const App = () => {
           component={ListScreen}
           options={{
             tabBarIcon: () => (
-              <Image
-                source={require("./assets/list.png")}
-                style={styles.icons}
-              />
+              <ListIcon width={24} height={24} />
             ),
           }}
         />
@@ -56,10 +53,7 @@ const App = () => {
           component={ProfileScreen}
           options={{
             tabBarIcon: () => (
-              <Image
-                source={require("./assets/profile.png")}
-                style={styles.icons}
-              />
+              <ProfileIcon width={24} height={24} />
             ),
           }}
         />
