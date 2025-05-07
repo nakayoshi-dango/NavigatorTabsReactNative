@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { View, Button, Alert, Text, useColorScheme } from "react-native";
+import { View, Button, Alert, Text, useColorScheme, ScrollView } from "react-native";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { FIREBASE_AUTH } from "../../FirebaseConfig";
 import { createStackNavigator } from "@react-navigation/stack";
 import LoginScreen from "./LoginScreen";
 import SignUpScreen from "./SignUpScreen";
+import FileScreen from "./FileScreen";
 import UserDetailsForm from "../UserDetailsForm";
 import getGlobalStyles from "../../general-styles";
 import { useNavigation } from "@react-navigation/native";
@@ -52,14 +53,20 @@ const ProfileScreen = () => {
   }
 
   return (
-    <View>
+    <ScrollView>
       {user ? (
         <>
           <Text style={styles.h2text}>
             Usuario conectado: {user.email ? user.email : "No disponible"}
           </Text>
-          <UserDetailsForm/>
+          <UserDetailsForm />
           <Button title="Cerrar Sesión" onPress={handleSignOut} />
+
+          <Text style={styles.h2text}>Firebase Storage</Text>
+          <Button
+            title="Archivos"
+            onPress={() => navigation.navigate("Files")}
+          />
         </>
       ) : (
         <>
@@ -73,7 +80,7 @@ const ProfileScreen = () => {
           />
         </>
       )}
-    </View>
+    </ScrollView>
   );
 };
 
@@ -85,6 +92,7 @@ const ProfileStack = () => {
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="SignUp" component={SignUpScreen} />
+      <Stack.Screen name="Files" component={FileScreen} />
     </Stack.Navigator>
   );
 };

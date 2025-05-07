@@ -65,7 +65,7 @@ const UserDetailsForm = () => {
   };
 
   return (
-    <ScrollView contentContainerStyle={{ padding: 20 }}>
+    <View contentContainerStyle={{ padding: 20 }}>
       <Text>Nombre</Text>
       <TextInput
         value={displayName}
@@ -145,7 +145,7 @@ const UserDetailsForm = () => {
       )}
 
       <Button title="Guardar cambios" onPress={handleSave} />
-    </ScrollView>
+    </View>
   );
 };
 

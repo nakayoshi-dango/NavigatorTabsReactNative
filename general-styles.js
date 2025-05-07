@@ -73,9 +73,7 @@ export default function getGlobalStyles(isDarkMode) {
       height: 300,
     },
     listitem: {
-      marginTop: 2,
-      marginBottom: 2,
-      marginHorizontal: 2,
+      margin: 2,
       padding: 16,
       borderRadius: 30,
       backgroundColor: isDarkMode ? "#374151" : "#d1d5db",
