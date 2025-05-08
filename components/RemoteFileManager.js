@@ -17,7 +17,7 @@ import { StorageManager } from "./StorageManager";
 import * as FileSystem from 'expo-file-system';
 
 const RemoteFileManager = () => {
-  const [folderPath, setFolderPath] = useState(""); // raíz
+  const [folderPath, setFolderPath] = useState(""); // empieza en el raíz
   const [newFolderName, setNewFolderName] = useState("");
   const [items, setItems] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -53,7 +53,7 @@ const RemoteFileManager = () => {
     try {
       const result = await DocumentPicker.getDocumentAsync({
         type: "*/*",
-        multiple: true, // por si quieres permitir múltiples archivos
+        multiple: true,
       });
   
       console.log(result);

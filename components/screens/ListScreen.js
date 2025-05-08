@@ -7,6 +7,7 @@ import {
   ScrollView,
   StyleSheet,
   useColorScheme,
+  TextInput
 } from "react-native";
 import { useEffect, useState } from "react";
 import MovieDisplay from "../MovieDisplay";
@@ -29,6 +30,9 @@ const ListScreen = ({ navigation }) => {
     useMovieStore();
   const colorScheme = useColorScheme();
   const styles = getGlobalStyles(colorScheme === "dark");
+  const [searchText, setSearchText] = useState(""); // Lista original de la API
+  const [filteredMovies, setFilteredMovies] = useState([]); // Lista filtrada
+
   const fetchMovies = async () => {
     try {
       const response = await fetch(
@@ -51,8 +55,16 @@ const ListScreen = ({ navigation }) => {
   };
 
   useEffect(() => {
+    if (!searchText.trim()) {
+      setFilteredMovies(movies);
+    } else {
+      const filtered = movies.filter((movie) =>
+        (movie.name || "").toLowerCase().includes(searchText.toLowerCase())
+      );
+      setFilteredMovies(filtered);
+    }
     fetchMovies();
-  }, []);
+  }, [searchText, movies]);
 
   const [imageError, setImageError] = useState(false);
 
@@ -61,35 +73,43 @@ const ListScreen = ({ navigation }) => {
   };
 
   return (
-    <FlatList
-      data={movies}
-      keyExtractor={(item, index) => movieKeys[index]}
-      renderItem={({ item, index }) => (
-        <View key={movieKeys[index]} style={styles.listitem}>
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate("Movie Details", { movie: item })
-            }
-          >
-            {imageError ? (
-              <Text style={styles.normaltext}>
-                La imagen no está disponible
-              </Text>
-            ) : (
-              <Image
-                style={styles.bigimage}
-                source={{ uri: item.pictureUrl }}
-                onError={handleImageError}
-                resizeMode="contain"
-              />
-            )}
-            <Text style={styles.h2text}>{item.name}</Text>
-            <Text style={styles.year}>{item.year}</Text>
-            <Text style={styles.description}>{item.description}</Text>
-          </TouchableOpacity>
-        </View>
-      )}
-    />
+    <>
+      <TextInput
+        placeholder="Buscar película..."
+        value={searchText}
+        onChangeText={setSearchText}
+        style={{ padding: 8, borderWidth: 1, margin: 10, borderRadius: 5 }}
+      />
+      <FlatList
+        data={filteredMovies}
+        keyExtractor={(item, index) => movieKeys[index]}
+        renderItem={({ item, index }) => (
+          <View key={movieKeys[index]} style={styles.listitem}>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("Movie Details", { movie: item })
+              }
+            >
+              {imageError ? (
+                <Text style={styles.normaltext}>
+                  La imagen no está disponible
+                </Text>
+              ) : (
+                <Image
+                  style={styles.bigimage}
+                  source={{ uri: item.pictureUrl }}
+                  onError={handleImageError}
+                  resizeMode="contain"
+                />
+              )}
+              <Text style={styles.h2text}>{item.name}</Text>
+              <Text style={styles.year}>{item.year}</Text>
+              <Text style={styles.description}>{item.description}</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+      />
+    </>
   );
 };
 
