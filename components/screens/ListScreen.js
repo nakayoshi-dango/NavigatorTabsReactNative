@@ -9,11 +9,12 @@ import {
   useColorScheme,
   TextInput
 } from "react-native";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useLayoutEffect } from "react";
 import MovieDisplay from "../MovieDisplay";
 import useMovieStore from "../useMovieStore";
 import { createStackNavigator } from "@react-navigation/stack";
 import getGlobalStyles from "../../general-styles";
+import useLikeStore from "../useLikeStore";
 
 const MovieDetailScreen = ({ route }) => {
   const { movie } = route.params;
@@ -26,12 +27,24 @@ const MovieDetailScreen = ({ route }) => {
 };
 
 const ListScreen = ({ navigation }) => {
+  const likedCount = useLikeStore(state => state.likedMovies.length);
+  
+  useLayoutEffect(() => {
+  navigation.setOptions({
+    headerRight: () => (
+      <Text style={{ marginRight: 16, fontWeight: "bold", fontSize: 16 }}>
+        ❤️ {likedCount}
+      </Text>
+    ),
+  });
+}, [navigation, likedCount])
+
   const { movies, movieKeys, setMovies, setMovieKeys, mergeMovies } =
     useMovieStore();
   const colorScheme = useColorScheme();
   const styles = getGlobalStyles(colorScheme === "dark");
-  const [searchText, setSearchText] = useState(""); // Lista original de la API
-  const [filteredMovies, setFilteredMovies] = useState([]); // Lista filtrada
+  const [searchText, setSearchText] = useState("");
+  const [filteredMovies, setFilteredMovies] = useState([]);
 
   const fetchMovies = async () => {
     try {
