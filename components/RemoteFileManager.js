@@ -14,7 +14,7 @@ import {
 import * as DocumentPicker from "expo-document-picker";
 import { decode } from "base64-arraybuffer";
 import { StorageManager } from "./StorageManager";
-import * as FileSystem from 'expo-file-system';
+import * as FileSystem from "expo-file-system";
 
 const RemoteFileManager = () => {
   const [folderPath, setFolderPath] = useState(""); // empieza en el raíz
@@ -45,7 +45,7 @@ const RemoteFileManager = () => {
       fetchFolder();
     } catch (error) {
       Alert.alert("Error", "No se pudo crear la carpeta.");
-      console.error("Error: ", error.message);
+      console.error("Error supabase: ", error.message);
     }
   };
 
@@ -55,28 +55,28 @@ const RemoteFileManager = () => {
         type: "*/*",
         multiple: true,
       });
-  
+
       console.log(result);
-  
+
       if (result.canceled || !result.assets?.length) {
         console.log("Selección cancelada o vacía");
         return;
       }
-  
+
       for (const file of result.assets) {
         const { name, uri, size, mimeType } = file;
-  
+
         console.log("Archivo seleccionado:", name, uri, size, mimeType);
-  
+
         const fileBase64 = await readFileAsBase64(uri);
         const fileBuffer = decode(fileBase64);
-  
+
         const { error } = await StorageManager.uploadFile(
           `${folderPath}/${name}`,
           fileBuffer,
           mimeType || "application/octet-stream"
         );
-  
+
         if (error) {
           console.error("Error subiendo archivo:", name, error);
           Alert.alert("Error subiendo archivo:", name, error);
@@ -91,7 +91,7 @@ const RemoteFileManager = () => {
     }
     fetchFolder();
   };
-  
+
   // Función auxiliar
   const readFileAsBase64 = async (uri) => {
     try {
@@ -169,12 +169,13 @@ const RemoteFileManager = () => {
       </View>
 
       <TextInput
+        testID="new-folder-name"
         placeholder="Nombre de la nueva carpeta"
         value={newFolderName}
         onChangeText={setNewFolderName}
         style={{ borderWidth: 1, padding: 8, marginTop: 10 }}
       />
-      <Button title="Crear Carpeta" onPress={createFolder} />
+      <Button title="Crear Carpeta" testID="create-folder" onPress={createFolder} />
 
       <View style={{ marginTop: 10 }}>
         <Button title="Subir Archivo" onPress={uploadFile} />
@@ -187,6 +188,7 @@ const RemoteFileManager = () => {
         scrollEnabled={false}
         renderItem={({ item }) => (
           <TouchableOpacity
+            testID={`item-${item.name}`}
             onPress={() =>
               item.type === "file"
                 ? setSelectedFile(item.name)

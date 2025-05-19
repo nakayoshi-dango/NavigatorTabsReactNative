@@ -7,7 +7,7 @@ import {
   ScrollView,
   StyleSheet,
   useColorScheme,
-  TextInput
+  TextInput,
 } from "react-native";
 import { useEffect, useState, useLayoutEffect } from "react";
 import MovieDisplay from "../MovieDisplay";
@@ -27,17 +27,17 @@ const MovieDetailScreen = ({ route }) => {
 };
 
 const ListScreen = ({ navigation }) => {
-  const likedCount = useLikeStore(state => state.likedMovies.length);
-  
+  const likedCount = useLikeStore((state) => state.likedMovies.length);
+
   useLayoutEffect(() => {
-  navigation.setOptions({
-    headerRight: () => (
-      <Text style={{ marginRight: 16, fontWeight: "bold", fontSize: 16 }}>
-        ❤️ {likedCount}
-      </Text>
-    ),
-  });
-}, [navigation, likedCount])
+    navigation.setOptions({
+      headerRight: () => (
+        <Text testID="liked-count" style={{ marginRight: 16, fontWeight: "bold", fontSize: 16 }}>
+          ❤️ {likedCount}
+        </Text>
+      ),
+    });
+  }, [navigation, likedCount]);
 
   const { movies, movieKeys, setMovies, setMovieKeys, mergeMovies } =
     useMovieStore();
@@ -62,7 +62,7 @@ const ListScreen = ({ navigation }) => {
 
       mergeMovies(moviesArray, keysArray);
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error fetch:", error);
       Alert.alert("Error al cargar películas", error.message);
     }
   };
@@ -88,6 +88,7 @@ const ListScreen = ({ navigation }) => {
   return (
     <>
       <TextInput
+        testID="searchbar"
         placeholder="Buscar película..."
         value={searchText}
         onChangeText={setSearchText}
@@ -99,6 +100,7 @@ const ListScreen = ({ navigation }) => {
         renderItem={({ item, index }) => (
           <View key={movieKeys[index]} style={styles.listitem}>
             <TouchableOpacity
+              testID={`movie-item-${movieKeys[index]}`}
               onPress={() =>
                 navigation.navigate("Movie Details", { movie: item })
               }
@@ -115,7 +117,7 @@ const ListScreen = ({ navigation }) => {
                   resizeMode="contain"
                 />
               )}
-              <Text style={styles.h2text}>{item.name}</Text>
+              <Text style={styles.h2text} testID={`movie-title-${movieKeys[index]}`}>{item.name}</Text>
               <Text style={styles.year}>{item.year}</Text>
               <Text style={styles.description}>{item.description}</Text>
             </TouchableOpacity>

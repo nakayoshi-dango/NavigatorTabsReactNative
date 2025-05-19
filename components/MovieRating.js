@@ -21,7 +21,7 @@ const MovieRating = ({ movie }) => {
   const [loginError, setLoginError] = useState("");
   const colorScheme = useColorScheme();
   const styles = getGlobalStyles(colorScheme === "dark");
-  const { addRating, getRating } = useRatingStore();
+  const { addRating, getRating, ratings } = useRatingStore();
   const auth = FIREBASE_AUTH;
   const [localRating, setLocalRating] = useState(null);
   const { addLike, removeLike, isLiked } = useLikeStore();
@@ -34,7 +34,19 @@ const MovieRating = ({ movie }) => {
         setLocalRating(rating);
       }
     }
-  }, [movie.id]);
+  }, [movie.id, ratings]);
+
+  useEffect(() => {
+  const user = auth.currentUser;
+  if (user) {
+    const existingRating = getRating(user.email, movie.id);
+    if (existingRating) {
+      setRating(existingRating.rating);
+      setComment(existingRating.comment);
+    }
+  }
+}, [movie.id, ratings]); // este era el fallo original también
+
 
   const isValidRating = (rating) => {
     const numberRegex = /^[0-5]$/;
@@ -114,25 +126,13 @@ const MovieRating = ({ movie }) => {
     }
   };
 
-  // Verificamos si ya hay una valoración almacenada para esta película
-  useEffect(() => {
-    const user = auth.currentUser;
-    if (user) {
-      // Accedemos a las valoraciones usando el hook correctamente
-      const existingRating = getRating(user.email, movie.id); // Obtenemos la valoración si existe
-      if (existingRating) {
-        setRating(existingRating.rating);
-        setComment(existingRating.comment);
-      }
-    }
-  }, [movie.id, getRating]); // Aseguramos que getRating esté disponible
 
   return (
     <View>
       {localRating && (
         <>
           <Text style={styles.h2text}>Tu valoración:</Text>
-          <Text style={styles.normaltext}>
+          <Text style={styles.normaltext} testID="your-rating">
             {localRating.comment
               ? `"${localRating.comment}"`
               : "Sin comentario"}{" "}
@@ -145,6 +145,7 @@ const MovieRating = ({ movie }) => {
 
       <TextInput
         style={styles.textinput}
+        testID="comment-input"
         placeholder="Comentario"
         placeholderTextColor="#6b7280"
         value={comment}
@@ -156,6 +157,7 @@ const MovieRating = ({ movie }) => {
       ) : null}
 
       <TextInput
+        testID="rating-input"
         style={styles.textinput}
         placeholder="Valoración"
         placeholderTextColor="#6b7280"
@@ -167,11 +169,11 @@ const MovieRating = ({ movie }) => {
 
       {loginError ? <Text style={{ color: "red" }}>{loginError}</Text> : null}
 
-      <Pressable onPress={handleRating} style={styles.pressableOpacity}>
+      <Pressable testID="comment-button" onPress={handleRating} style={styles.pressableOpacity}>
         <Text style={styles.boldtext}>Valorar</Text>
       </Pressable>
 
-      <Pressable onPress={handleLike} style={styles.pressableOpacity}>
+      <Pressable testID="like-button" onPress={handleLike} style={styles.pressableOpacity}>
         <Text style={styles.boldtext}>{isLiked(movie.id) ? "Quitar like" : "Dar like"}</Text>
       </Pressable>
     </View>

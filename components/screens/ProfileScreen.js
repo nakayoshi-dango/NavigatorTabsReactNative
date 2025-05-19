@@ -56,7 +56,7 @@ const ProfileScreen = () => {
     <ScrollView>
       {user ? (
         <>
-          <Text style={styles.h2text}>
+          <Text style={styles.h2text} testID="current-user">
             Usuario conectado: {user.email ? user.email : "No disponible"}
           </Text>
           <UserDetailsForm />
@@ -64,6 +64,7 @@ const ProfileScreen = () => {
 
           <Text style={styles.h2text}>Firebase Storage</Text>
           <Button
+            testID="files"
             title="Archivos"
             onPress={() => navigation.navigate("Files")}
           />
@@ -72,9 +73,11 @@ const ProfileScreen = () => {
         <>
           <Button
             title="Iniciar Sesión"
+            testID="login-button"
             onPress={() => navigation.navigate("Login")}
           />
           <Button
+            testID="register-button"
             title="Registrarse"
             onPress={() => navigation.navigate("SignUp")}
           />

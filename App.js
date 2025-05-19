@@ -42,6 +42,7 @@ const App = () => {
         <Tab.Screen
           name="Listado"
           component={ListScreen}
+          testID="Listado"
           options={{
             tabBarIcon: () => (
               <ListIcon width={24} height={24} />
@@ -51,6 +52,7 @@ const App = () => {
         <Tab.Screen
           name="Perfil"
           component={ProfileScreen}
+          testID="Perfil"
           options={{
             tabBarIcon: () => (
               <ProfileIcon width={24} height={24} />

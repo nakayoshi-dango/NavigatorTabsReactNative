@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, Alert, useColorScheme } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  Alert,
+  useColorScheme,
+} from "react-native";
 import {
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
@@ -104,6 +111,7 @@ export default function LoginScreen() {
     <View style={styles.deadcenter}>
       <Text style={styles.h2text}>Iniciar Sesión</Text>
       <TextInput
+        testID="login-email"
         style={styles.textinput}
         placeholder="Correo electrónico"
         placeholderTextColor="#6b7280"
@@ -113,6 +121,7 @@ export default function LoginScreen() {
       />
       {emailError ? <Text style={{ color: "red" }}>{emailError}</Text> : null}
       <TextInput
+        testID="login-password"
         style={styles.textinput}
         placeholder="Contraseña"
         placeholderTextColor="#6b7280"
@@ -123,7 +132,7 @@ export default function LoginScreen() {
       {passwordError ? (
         <Text style={{ color: "red" }}>{passwordError}</Text>
       ) : null}
-      <Button title="Iniciar Sesión" onPress={handleLogin} />
+      <Button title="Iniciar Sesión" testID="login-login-button" onPress={handleLogin} />
       <Button title="Restablecer contraseña" onPress={sendResetPassword} />
     </View>
   );

@@ -25,17 +25,17 @@ const MovieDisplay = ({ movie }) => {
         />
       )}
 
-      <Text style={styles.h2text}>Id: {movie.id}</Text>
-      <Text style={styles.h2text}>Nombre: {movie.name}</Text>
-      <Text style={styles.normaltext}>Duración: {movie.duration}</Text>
-      <Text style={styles.normaltext}>Likes: {movie.likes}</Text>
-      <Text style={styles.normaltext}>Rating: {movie.rating}</Text>
-      <Text style={styles.normaltext}>Descripción: {movie.description}</Text>
+      <Text style={styles.h2text} testID="movie-id">Id: {movie.id}</Text>
+      <Text style={styles.h2text} testID="movie-name">Nombre: {movie.name}</Text>
+      <Text style={styles.normaltext} testID="movie-length">Duración: {movie.duration}</Text>
+      <Text style={styles.normaltext} testID="movie-likes">Likes: {movie.likes}</Text>
+      <Text style={styles.normaltext} testID="movie-rating">Rating: {movie.rating}</Text>
+      <Text style={styles.normaltext} testID="movie-description">Descripción: {movie.description}</Text>
 
-      <Text style={styles.h2text}>Actores:</Text>
+      <Text style={styles.h2text} testID="movie-actors">Actores:</Text>
       {movie.actors && movie.actors.length > 0 ? (
         movie.actors.map((actor, idx) => (
-          <Text key={idx} style={styles.normaltext}>
+          <Text key={idx} testID={`actor-${idx}`} style={styles.normaltext}>
             - {actor}
           </Text>
         ))
@@ -43,7 +43,7 @@ const MovieDisplay = ({ movie }) => {
         <Text style={styles.h2text}>No hay actores disponibles</Text>
       )}
 
-      <Text style={styles.h2text}>Categorías:</Text>
+      <Text style={styles.h2text}  testID="movie-categories">Categorías:</Text>
       {movie.categories && movie.categories.length > 0 ? (
         movie.categories.map((category, idx) => (
           <Text key={idx} style={styles.normaltext}>
@@ -54,7 +54,7 @@ const MovieDisplay = ({ movie }) => {
         <Text style={styles.h2text}>No hay categorías disponibles</Text>
       )}
 
-      <Text style={styles.h2text}>Valoraciones:</Text>
+      <Text style={styles.h2text}  testID="movie-ratings">Valoraciones:</Text>
       {movie.ratings && movie.ratings.length > 0 ? (
         movie.ratings.map((rating, idx) => (
           <Text key={idx} style={styles.normaltext}>
@@ -67,9 +67,9 @@ const MovieDisplay = ({ movie }) => {
       )}
 
       
-      <MovieRating movie={movie} />
+      <MovieRating movie={movie} testID="my-movie-rating"/>
 
-      <Text style={styles.h2text}>Usuarios que dieron like:</Text>
+      <Text style={styles.h2text} testID="movie-liked-users">Usuarios que dieron like:</Text>
       {movie.userLiked && movie.userLiked.length > 0 ? (
         movie.userLiked.map((user, idx) => (
           <Text key={idx} style={styles.normaltext}>
