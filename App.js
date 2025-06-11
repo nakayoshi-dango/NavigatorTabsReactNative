@@ -1,20 +1,67 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Image, useColorScheme } from "react-native";
+import { useEffect } from "react";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { NavigationContainer } from "@react-navigation/native";
+import getGlobalStyles from "./general-styles";
+import NotificationsManager from "./components/NotificationsManager";
+import { StartScreen, ListScreen, ProfileScreen } from "./components/screens";
+import HomeIcon from './assets/icons/home-icon.svg';
+import ListIcon from './assets/icons/list-icon.svg';
+import ProfileIcon from './assets/icons/profile-icon.svg';
 
-export default function App() {
+
+const App = () => {
+  const Tab = createBottomTabNavigator();
+  const colorScheme = useColorScheme();
+  const styles = getGlobalStyles(colorScheme === "dark");
+  useEffect(() => {
+    // Pedir permisos para notificaciones
+    NotificationsManager.requestUserPermission();
+
+    NotificationsManager.getDeviceToken();
+    
+    // Suscribirse a un canal
+    NotificationsManager.subscribeToTopic('general');
+    
+    // Escuchar notificaciones
+    NotificationsManager.listenForNotifications();
+  }, []);
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    // Toda app con un Navigator debe tener un NavigationContainer como elemento raíz
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen
+          name="Inicio"
+          component={StartScreen}
+          options={{
+            tabBarIcon: () => (
+              <HomeIcon width={24} height={24} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Listado"
+          component={ListScreen}
+          testID="Listado"
+          options={{
+            tabBarIcon: () => (
+              <ListIcon width={24} height={24} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Perfil"
+          component={ProfileScreen}
+          testID="Perfil"
+          options={{
+            tabBarIcon: () => (
+              <ProfileIcon width={24} height={24} />
+            ),
+          }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;

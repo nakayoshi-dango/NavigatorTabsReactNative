@@ -1,0 +1,150 @@
+appId: com.keiji.fct
+---
+- launchApp:
+    appId: "com.keiji.fct"
+    clearState: true
+
+- tapOn: "Enter URL manually"
+
+- inputText: "http://192.168.8.235:8081"
+
+- hideKeyboard
+
+- tapOn: "Connect"
+
+- tapOn: 
+    point: "50%,30%"
+
+# Testear inicio de sesión
+
+- extendedWaitUntil:
+    visible: "Perfil"
+    timeout: 10000
+
+- tapOn: "Perfil"
+
+- tapOn:
+    id: "login-button"
+
+- tapOn:
+    id: "login-email"
+
+- inputText: "keiji@prueba.com"
+
+- hideKeyboard
+
+- tapOn:
+    id: "login-password"
+
+- inputText: "prueba"
+
+- hideKeyboard
+
+- tapOn:
+    id: "login-login-button" ## Iniciar sesión
+
+- tapOn: "OK"
+
+# Testear listado de movies
+
+- tapOn: "Listado" ## El listado debe cargar inicialmente
+
+- assertVisible: "Blade" ## Debe encontrarse el título de cada uno de los resultados
+
+- tapOn: "Blade"
+
+- assertVisible: "- Wesley Snipes" ## Deben encontrarse los actores de cada resultado
+
+- scroll
+
+- tapOn: "Dar like" ## Debe poderse hacer like a una movie
+
+- assertVisible: "Quitar like"
+
+- tapOn:
+    id: "comment-input"
+
+- inputText: "Esto es un comentario de prueba!"
+
+- hideKeyboard
+
+- tapOn:
+    id: "rating-input"
+
+- inputText: "4"
+
+- hideKeyboard
+
+- tapOn:
+    text: "Valorar"
+    index: 1
+
+- tapOn: "OK"
+
+- assertVisible: "Tu valoración:" ## Debe poder escribirse un comentario en una movie, dicho comentario debe encontrarse
+
+- pressKey: back
+
+- assertVisible: "❤️ 1" ## Al hacer like en una movie el contador de likes de la app debe actualizarse
+
+# Filtrar y Testear detalle de movie
+
+- tapOn:
+    id: "searchbar"
+
+- inputText: "peli mala" ## Escribir en la barra de búsqueda el nombre de una movie
+
+- hideKeyboard
+
+- assertVisible: "peli mala" ## En el listado debe aparecer dicha movie
+
+- tapOn:
+    text: "peli mala"
+    index: 1 ## Tocar la movie para ir al detalle
+
+- assertVisible: "Id: 5154345674"
+
+- assertVisible: "Nombre: peli mala"
+
+- assertVisible: "Duración: mucho"
+
+- assertVisible: "Likes: -1"
+
+- assertVisible: "Rating: 0"
+
+- assertVisible: "Descripción: mala"
+
+- assertVisible: "Actores:"
+
+- assertVisible: "Categorías:"
+
+- scroll
+
+- assertVisible: "Valoraciones:"
+
+- assertVisible: "Usuarios que dieron like:" ## En el detalle deben aparecer todos los datos de la movie
+
+# Testear datos de perfil
+
+- tapOn: "Perfil"
+
+- assertVisible: "Usuario conectado: keiji@prueba.com" ## La pantalla de perfil debe aparecer con los datos del usuario
+
+# Testear gestor documental
+
+- tapOn:
+    id: "files"
+
+- assertVisible: "📁 hola" ## Comprobar que se listan los archivos y carpetas correctos
+
+- tapOn:
+    id: "new-folder-name"
+
+- inputText: "prueba maestro"
+
+- hideKeyboard
+
+- tapOn:
+    id: "create-folder" ## Crear una nueva carpeta
+
+- assertVisible: "📁 prueba maestro" ## Comprobar que la carpeta está en el listado

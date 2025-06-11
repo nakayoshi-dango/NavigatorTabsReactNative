@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyB5XbVplruC4q8_XC5Bi7QzVthsWqpDDzs</string>
+	<key>GCM_SENDER_ID</key>
+	<string>74792325961</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.keiji.fct</string>
+	<key>PROJECT_ID</key>
+	<string>navigatortabsreactnative</string>
+	<key>STORAGE_BUCKET</key>
+	<string>navigatortabsreactnative.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:74792325961:ios:5754de05c531ad76e4c098</string>
+	<key>DATABASE_URL</key>
+	<string>https://navigatortabsreactnative-default-rtdb.europe-west1.firebasedatabase.app</string>
+</dict>
+</plist>
